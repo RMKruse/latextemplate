@@ -1,3 +1,42 @@
 \section{motivation}
 \label{sec:motivation}
 
+% Einleitung
+%
+% @version 1.0
+% @author René-M. Kruse
+% @created 02.Juli 2019
+% @edited 
+
+\section{Introduction}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\label{chap:intro}
+
+% NEU:
+The class of linear mixed models \citep{henderson1950estimation} is a very powerful and flexible analytic tool, 
+that enjoys popularity especially for the analysis of clustered or longitudinal data \citep{Laird.1982, verbeke2009linear}, 
+for splines smoothing \citep{ruppert2003semiparametric, wager2007model} and for functional data analysis 
+\citep{di2009multilevel, cederbaum2016functional}. Due to the flexibility and therefore possible complexity of the models, 
+the question of valid model selection procedures comes to the centre of attention. 
+% While models with nested and clustered structure can be evaluated by hypothesis tests regarding the suitability 
+of the included random effects, this methodology suffers from limitations as methods such as likelihood-ratio tests 
+can encounter potential boundary problems \citep{crainiceanu2004likelihood, wood2013simple}. Furthermore, the deviations 
+from the regularity conditions of the linear mixed model pose a serious problem with the use of information criteria 
+such as the commonly used Akaike Information Criterion \citep{Akaike.1973} for model choice \citep{wager2007model}.
+However, deviations from the regularity of the linear mixed model pose a serious problem with the use of information 
+criteria such as the commonly used Akaike Information Criterion \citep{Akaike.1973} for model choice \citep{wager2007model}.
+Furthermore, evaluating the suitability of the included random effects of models with nested or clustered structures 
+suffers from limitations as methods such as the likelihood-ratio test encounter boundary problems \citep{crainiceanu2004likelihood, wood2013simple}.
+
+\cite{Vaida.2005}, however, showed that it is also possible to derive an AIC from the conditional formulation, which in turn is particularly 
+suitable for accounting for possible shrinkage in random effects. \cite{liang2008note} suggest a corrected version of the conditional AIC which incorporates the effect of estimating the variance parameter. Nevertheless, this proposed version is computationally intensive as it relies on numerical approximation. \cite{Greven.2010} demonstrate that an analytical solution can be derived and thus minimize the computational intensity of the corrected version of the conditional AIC.
+Another approach to addressing model uncertainty is model averaging.  Instead of choosing a single model from a list of candidate models based on information criteria such as AIC or BIC,  an weighted average of the considered models is calculated and then used for analysis. Selecting the underlying weights for the averaged models is an important factor when dealing with model averaging. Different proposals have been brought forward, the most prominent one being the approach of information criteria based weights \citep{Buckland.1997}. Yet a majority of proposals aim at classical linear models and do not encounter difficulties when applied to the model framework of linear mixed models. 
+A proposal by \cite{Zhang.2014} demonstrates that it is possible to construct an asymptotically optimal weight finding criterion for model averaging of linear mixed models based on the conditional AIC. 
+One issue not addressed by the authors of the proposed weighting criterion is a computationally stable and fast minimization of the underlying target function. The non-linear form of the criterion itself, as well as the nature of the constraints in the form of simultaneous equality and inequality conditions, makes it necessary to resort to complex, advanced optimization methods that are not part of the basic version of the programming language R.
+
+In this paper, we present an implemented version of the proposed weight finding criterion by \cite{Zhang.2014} in the statistical programming language R \citep{r.team}.
+Furthermore, we describe the special non-linear optimization under equality and inequality constraints of the underlying problem.  We illustrate the approach of solving the problem by applying the augmented Lagrangian method \citep{hestenes1969multiplier, powell1969method} and present our implementation of the solver which is a uniquely customized version of the augmented Lagrangian optimization method for optimization of our weight finding problem.
+
+This paper is structured as follows:
+Section 2 introduces the theory and formulations of linear mixed models, as well as the estimation and the application of linear mixed models for spline smoothing. Section 3 presents the concept of the conditional AIC and its corrections, in addition this section also induces the concept of model averaging and the weight finding criterion proposed by \cite{Zhang.2014}, which is the most one important for our implementation. The following section 4 gives an introduction to the newly implemented functions of the \textbf{cAIC4} R-package \citep{Safken.2018} and the underlying mathematical concept of the augmented Lagrangian method. Section 5 analyzises the properties of the implemented methods by applying them to three different simulation studies. The last section 6, gives a summary of the findings of the previous sections and also gives an outlook of further work concerning model selection and averaging for linear mixed models. 

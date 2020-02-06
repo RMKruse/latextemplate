@@ -1,30 +1,51 @@
 \documentclass[12pt]{article}
 
-\input{document/meta}
-\input{document/settings}
-\input{content/abbreviations}
+% \usepackage{import}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{setspace}
+%\doublespacing
+
+% tabellen in text width force:
+\usepackage{tabularx}
+\usepackage{graphicx} %package to manage images
+\graphicspath{{images/}}
+ 
+% For using input of child chapters
+% \usepackage{pdfpages}
+\usepackage{pdfpages}
+
+% \usepackage[dvipsnames]{xcolor}
+% \usepackage{makeidx}
+% \usepackage{algorithm}    % Pseudo Code/Algo
+% \usepackage{algorithmic}  % Pseudo Code/Algo
+% \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+% \SetKwInput{KwInput}{Input}              % Set the Input
+% \SetKwInput{KwOutput}{Output}            % set the Output
+% \SetKwInput{KwData}{Data}                % set the Data
+% \SetKwInput{KwIni}{Initialize}           % set the Ini
+% \SetKwInput{KwStart}{Start}              % set the Begin
+% \SetKwInput{KwEnd}{End}                  % set the End
+
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-.5in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+
 
 %% start of main document
 \begin{document}
   \input{content/00-title/0-titlepage.tex}
-
   \input{content/01-introduction/0-index.tex}
-
   \input{content/02-lmms/0-index.tex}
-
   \input{content/03-modelchoice/0-index.tex}
-
   \input{content/04-practicalma/0-index.tex}
-
   \input{content/05-simulations/0-index.tex}
-
-  \input{content/06-applications/0-index.tex}
-
+  \input{content/06-application/0-index.tex}
   \input{content/07-conclusions/0-index.tex}
-  
   \input{content/99-appendix/0-index.tex}
-  
   \printbibliography[heading=bibintoc]
-  
-
 \end{document}
