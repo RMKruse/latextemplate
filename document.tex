@@ -1,39 +1,64 @@
 \documentclass[12pt]{article}
 
-% \usepackage{import}
-\usepackage{natbib}
-\usepackage{amsmath}
-\usepackage{amssymb}
-%\usepackage{setspace}
-%\doublespacing
+% Latex Settings
+\usepackage[english]{babel}      % englische silbentrennung
+\usepackage[utf8]{inputenc}      % Umlaute unter UTF8 nutzen
+\usepackage[T1]{fontenc}         % Zeichenencoding
+\usepackage{natbib}              % Bibliography use
+\usepackage[dvipsnames]{xcolor}  % Farben für pdfs
+\usepackage{lmodern}             % Bessere Darstellung von fonts in pdfs
+\usepackage{fix-cm}              % Overrides LATEX font restriction sizes
+\usepackage{import}              % Load files from relativ directory
+\usepackage{scrlayer-scrpage}    % Define and manage page styles
+\clearpairofpagestyles
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\pagestyle{scrheadings}
 
-% tabellen in text width force:
-\usepackage{tabularx}
-\usepackage{graphicx} %package to manage images
+
+% Grafiken und Bild-Datein
+\usepackage{graphicx}      %package to manage images
 \graphicspath{{images/}}
- 
-% For using input of child chapters
-% \usepackage{pdfpages}
-\usepackage{pdfpages}
+\usepackage{wrapfig}       % Produces figures which text can flow around
+\usepackage{caption}       % Customising captions in floating environments
+\usepackage{subcaption}    % Support for sub-captions
+\usepackage{float}         % Improved interface for floating objects
+\usepackage{pdfpages}      % PDF und Matlabdateien einbinden
 
-% \usepackage[dvipsnames]{xcolor}
-% \usepackage{makeidx}
-% \usepackage{algorithm}    % Pseudo Code/Algo
-% \usepackage{algorithmic}  % Pseudo Code/Algo
-% \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+% Mathematische Formeln
+\usepackage{amsmath}     % mathematical typesetting
+\usepackage{amssymb}     % Sonderzeichen (Pfeile, Zuweisungen)
+\usepackage{amsfonts}    % TEX fonts from the American Mathematical Society
+\usepackage{nicefrac}    % schräge Brüche 
 
-% \SetKwInput{KwInput}{Input}              % Set the Input
-% \SetKwInput{KwOutput}{Output}            % set the Output
-% \SetKwInput{KwData}{Data}                % set the Data
-% \SetKwInput{KwIni}{Initialize}           % set the Ini
-% \SetKwInput{KwStart}{Start}              % set the Begin
-% \SetKwInput{KwEnd}{End}                  % set the End
+% Theoreme
+\usepackage{amsthm}    % Typesetting theorems (AMS style)
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
 
-\addtolength{\oddsidemargin}{-.5in}%
-\addtolength{\evensidemargin}{-.5in}%
-\addtolength{\textwidth}{1in}%
-\addtolength{\textheight}{1.3in}%
-\addtolength{\topmargin}{-.8in}%
+% Pseudo Code und Algorithmen
+\usepackage{algorithm}  
+\usepackage{algorithmic}  
+
+% Typesetting und layout
+\usepackage{tcolorbox}         % Coloured boxes, for LATEX examples and theorems
+\usepackage[normalem]{ulem}    % Package for underlining
+
+% Tabellen
+\usepackage{array}       % Extending the array and tabular environments
+\usepackage{multirow}    % Create tabular cells spanning multiple rows
+\usepackage{booktabs}    % Publication quality tables in LATEX
+\usepackage{tabularx}    % tabellen in text width force:
+
+
+% mehrseitige Tabellen ermöglichen
+\usepackage{longtable}    % Allow tables to flow over page boundaries
+\usepackage{rotating}     % Rotation tools, including rotated full-page floats
+\usepackage{lscape}       % Place selected parts of a document in landscape
+
+% Hyperlink Referenzen im Text
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=blue, citecolor=blue]{hyperref}
+
+
 
 
 %% start of main document
@@ -47,5 +72,7 @@
   \input{content/06-application/0-index.tex}
   \input{content/07-conclusions/0-index.tex}
   \input{content/99-appendix/0-index.tex}
-  \printbibliography[heading=bibintoc]
+  \newpage
+  \bibliographystyle{apalike}
+  \bibliography{literature}
 \end{document}
