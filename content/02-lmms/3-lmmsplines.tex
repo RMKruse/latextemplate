@@ -1,0 +1,26 @@
+\subsection{Linear mixed models for spline smoothing}
+\label{chap:2.4.splinesmoothing}
+
+Apart from using the linear mixed models as a data analysis tool itself, this model class can also be used as a vehicle to fit semi-parametric models \citep{ruppert2003semiparametric}. This connection can most easily be explained for the case of truncated polynomials. 
+For the simple univariate smoothing case the following applies
+
+\begin{equation*}
+\label{specialcase2}
+y_{i}=f\left(x_{i}\right)+\varepsilon_{i}, \quad i=1, \ldots, n,
+\end{equation*}
+where $f(x_{i})$ is a smoothing function which utilises splines. In the case of truncated polynomials, the following base representation is applied
+\begin{equation*}
+\label{approximation}
+f(x)=\sum_{j=0}^{d} \beta_{j} x^{j}+\sum_{j=1}^{K} b_{j}\left(x-\kappa_{j}\right)_{+}^{d}
+\end{equation*}
+
+where $\kappa_{1}<\dots<\kappa_{n}$ are $\text{k} \in \mathbb{N}$ knots and partitioning the domain of x, such that $d \in \mathbb{N}$  
+
+\begin{equation*} 
+(z)_{+}^{d}=z^{d} \cdot I(z>0)=\left\{\begin{array}{ll}{z^{d}} & {\text { if } z>0} \\ {0} & {\text { if } z \leq 0}\end{array}\right .
+\end{equation*}
+To prevent over fitting and to get the smoothness of the estimated function the penalised least-squares criterion can be applied, whereas the criterion takes the following form of
+\begin{equation*}
+\operatorname{ls}_{\mathrm{pen}}( \boldsymbol \beta,  \boldsymbol{b})=( \boldsymbol {y}- \boldsymbol {X} { \boldsymbol \beta}- \boldsymbol {Z}  \boldsymbol {b})^{\top}  \boldsymbol {\Sigma}^{-1}( \boldsymbol {y}- \boldsymbol {X}  \boldsymbol {\beta}- \boldsymbol Z  \boldsymbol {b})+ \boldsymbol {b}^{\top}  \boldsymbol {D}_{\theta}^{-1}  \boldsymbol {b},
+\end{equation*}
+where $ \boldsymbol \Sigma:=\sigma^2_{ \boldsymbol \varepsilon}   \boldsymbol I_{n}$ and $ \boldsymbol D_{\theta}:= \sigma^{2}_{b}  \boldsymbol I_{k}$ with an relation between the sigmas of $\sigma^2_{b} = \lambda * \sigma^2_{\varepsilon}$. In this case, it becomes obvious that with a given fixed $\lambda$ this equation corresponds to the best linear unbiased estimator for $ \boldsymbol \beta$ and the best linear unbiased predictor for b in the linear mixed model case with fixed $\sigma_{b}$. The underlying parameter $\lambda = \sigma^2_{b} / \sigma^2_{ \boldsymbol \varepsilon}$ can be understood as a trade-off between fit and smoothness. By interpreting this problem as a linear mixed effect model allows $\lambda$ to be understood as the variance ratio of random and fixed effects and therefore to be determined via the presented ML (\ref{ml}) or REML (\ref{reml}) approaches \citep{ruppert2003semiparametric}. 

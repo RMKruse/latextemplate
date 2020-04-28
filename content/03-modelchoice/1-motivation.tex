@@ -1,3 +1,58 @@
-\section{motivation}
-\label{sec:motivation}
+\section{Conditional Model Averaging}
+\label{chap:3modelchoice}
+
+
+One of the most widely used criteria for model selection is the Akaike Information Criterion (AIC) \citep{Akaike.1973}. 
+The AIC is an estimator of the relative Kullback-Leibler-Distance \citep{Kullback.1951} and for simple linear regression models is up to a constant given by
+\begin{equation*}
+\label{aic}
+\mathrm{AIC}= - \dfrac{(\boldsymbol y - \boldsymbol X \boldsymbol \beta)^{T} (\boldsymbol y - \boldsymbol X \boldsymbol \beta)}{\sigma^{2}} + 2  p,
+\end{equation*} 
+with the number of parameters or degrees of freedom $p$.
+When applied to a number of possible candidate models, the model that displays the lowest AIC value among all candidate models is most favourable. In more general this model selection criterion can also be derived as an estimator for the squared prediction error \citep{efron2004estimation} as
+\begin{equation*}
+    \label{squaredpredictionerror}
+    \mathrm{AIC} = (\boldsymbol y - \boldsymbol X \boldsymbol \beta)^{T} (\boldsymbol y - \boldsymbol X \boldsymbol \beta) + 2 \sigma^{2} \sum_{i=1}^{n}\left(\frac{\partial \hat{  {y_i}}}{\partial  {y_i}}\right),
+\end{equation*}
+with an substitution of the degrees of freedom first being formalized by \cite{stein1972bound} where $ \sum_{i=1}^{n}\frac{\partial \hat{  {y_i}}}{\partial  {y_i}} = \frac{\partial \hat{ \boldsymbol {y}}}{\partial  \boldsymbol {y}} = \mathrm{tr}(\blodsymbol{\boldsymbol{H}}) =\rho$ for simple linear regression models with hat matrix $\boldsymbol{H}$.
+
+% For linear mixed models Vaida and Blanchard \citeyearpar{Vaida.2005} present an correction for the AIC based on the conditional formulation of the model. 
+Depending on the assumed perspective of the linear mixed model, two different AIC criteria exist: the marginal AIC (mAIC) which is based on the marginal formulation of log-likelihood, and the conditonal AIC (cAIC) which in turn is based on the conditional log-likelihood. Depending on the research question, the intention as well as the interpretation given by the respective approach varies \citep{Vaida.2005, Greven.2010}.   
+The proposed estimator of the conditional AIC takes the following form
+\begin{equation*}
+\label{cAIC}
+\mathrm{cAIC}=(\boldsymbol y - \boldsymbol X \boldsymbol \beta - \boldsymbol Z \boldsymbol b)^{T} \boldsymbol{V_{\theta}} (\boldsymbol y - \boldsymbol X \boldsymbol \beta - \boldsymbol Z \boldsymbol b) + \mathrm{tr}(\boldsymbol H).
+\end{equation*}
+
+The derivation by Vaida and Blanchard requires, however, that the variance-covariance matrix of the random effects is known.
+\cite{Liang.2008} propose a corrected version of the conditional AIC based on the degrees of freedom calculated via numerical approximation as
+\begin{equation*}
+    \label{liangCorrection}
+    \sum_{i=1}^{n} \frac{\partial \hat{  y}_{i}}{\partial   y_{i}}=\operatorname{tr}\left(\frac{\partial \hat{ \boldsymbol y}}{\partial  \boldsymbol y}\right).
+\end{equation*}
+
+This version however introduces high computational costs. \cite{Greven.2010} created an analytical version of the bias correction terms that allows the calculation of the corrected form of the cAIC without having to resort to complex numerical approximation.
+Based on the approach of the corrected conditional AIC and the proposed bias correction, the R-package cAIC4 \citep{Safken.2018} was developed, which allows to perform model selection based on the conditional AIC and to calculate a bias-corrected version of the  degrees of freedom for the candidate models under consideration. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Consider a given series of $K$ possible linear mixed-effects candidate models according to (\ref{generalLMM}), with the following formulations 
+\begin{equation*}
+ \boldsymbol y= \boldsymbol X_{k}  \boldsymbol \beta_{k}+ \boldsymbol Z_{k}  \boldsymbol b_{k}+ \boldsymbol \varepsilon,  \quad  \boldsymbol b_{k} \sim N\left( \boldsymbol 0,  \boldsymbol D_{\boldsymbol\theta}_{k}\right) \quad k=1, \ldots, K.
+\end{equation*}
+The fixed and random effects, as well as the variance-covariance matrices can be determined via a REML or ML approach, presented in \ref{equ:2.2nonstacked}. % For each candidate model the best linear unbiased estimator and the respective unbiased predictor take on the following form
+% \begin{equation*}
+% \begin{array}{c}
+% \hat{ \boldsymbol \beta}_{k}=\left( \boldsymbol X_{k}^{\prime} \hat{ \boldsymbol V}_{k}^{-1}  \boldsymbol X_{k}\right)^{-1}  \boldsymbol X_{k}^{\prime} \hat{ \boldsymbol V}_{k}^{-1}  \boldsymbol y, \\ \hat{ \boldsymbol b}_{k}=\hat{ \boldsymbol D}_{k}  \boldsymbol Z_{k}^{\prime} \hat{ \boldsymbol V}_{k}^{-1}\left( \boldsymbol y- \boldsymbol X_{k} \hat{ \boldsymbol \beta}_{k}\right).
+% \end{array}
+% \end{equation*}
+Hence the conditional mean is given by $\hat{ \boldsymbol y}_{k}=\boldsymbol{X}_{k} \hat{ \boldsymbol \beta}_{k}+ \boldsymbol Z_{k} \hat{ \boldsymbol b}_{k}$ leading to the following representation of the predicted values in terms of the estimated hat matrix $\hat{ \boldsymbol H}_{k}$ as $\hat{\boldsymbol y}_{k}=\hat{\boldsymbol H}_{k} \boldsymbol y$. 
+
+The idea of model averaging is to form a weighted average over all considered estimators. For this purpose consider a corresponding weighting vector $ \boldsymbol w=\left(w_{1}, \ldots, w_{K}\right)^{\prime}$ belonging to the following set $\mathcal{W}=\{\boldsymbol{w} \in[0,1]^{K} : \sum_{k=1}^{K}w_{s}=1 \}$. The model averaging estimator is described by the following 
+\begin{equation*}
+\label{modelaveragingestimator}
+\hat{ \boldsymbol y}(\boldsymbol w)=\sum_{k=1}^{K} w_{k} \hat{ \boldsymbol y}_{(k)}=\sum_{k=1}^{K} w_{k} \hat{ \boldsymbol H}_{(k)}  \boldsymbol y = \hat{ \boldsymbol H}( \boldsymbol w)  \boldsymbol y,
+\end{equation*}
+with $\hat{\boldsymbol H}(\boldsymbol w) = \sum_{k=1}^{K} w_{k} \hat{\boldsymbol H}_{k}$.
+
 

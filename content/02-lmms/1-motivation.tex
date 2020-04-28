@@ -1,3 +1,46 @@
-\section{motivation}
-\label{sec:motivation}
+\section{Linear Mixed Models}
+\label{sec:2lmm}
 
+The general design of linear mixed models in the following sections is as follows:
+\begin{equation*}
+  \label{generalLMM}
+  \boldsymbol y = \boldsymbol{X} \boldsymbol \beta +  \boldsymbol {Z} \boldsymbol b +  \boldsymbol \epsilon,
+\end{equation*} 
+where $ \boldsymbol y$ represents the vector of the $n$ observed responses 
+$ \boldsymbol y=(y_1, \dots , y_{n})^\top$, $ \boldsymbol {X}$ and $ \boldsymbol {Z}$ representing design matrices with full column ranks $p$ and $q$
+respectively. 
+The ($n \times 1$) vector $ \boldsymbol \epsilon$ represents the unobserved random errors.
+The parameters $\boldsymbol b$ and $ \boldsymbol \epsilon$ are assumed to be independent and following a multivariate Gaussian distribution, 
+whereas the distribution is defined as follows
+
+\begin{equation*}
+    \left(\begin{array}{l}{\boldsymbol b} \\ 
+    {\boldsymbol \epsilon}\end{array}\right) \sim \mathcal{N}\left\{\left(\begin{array}{l}{0} \\ 
+    {0}\end{array}\right),\left(\begin{array}{cc}{\boldsymbol{D_{\theta}}} & {0} \\ 
+    {0} & {\boldsymbol \Sigma}\end{array}\right)\right\},
+\end{equation*}
+
+with $ \boldsymbol {D_{\theta}}$ and $\boldsymbol \Sigma$ being a block-diagonal, 
+positive, semi-definite variance-covariance matrix that only depends on the covariance parameter $\boldsymbol \theta$ 
+and the overall model covariance parameter $\sigma^2$.
+The normality assumption here, however, is not mandatory and is only introduced for convenience, 
+enabling likelihood-based procedures for estimating unknown parameters in ${ \boldsymbol D_{\theta}$ 
+and of the residual variance \citep{Fahrmeir.2013}. 
+
+Furthermore let the covariance matrix of the model $\boldsymbol{V_{\theta}}$ be defined as follows
+
+\begin{equation*}
+    \boldsymbol{V_{\theta}}=\operatorname{cov}(\boldsymbol y)=\boldsymbol \Sigma +\boldsymbol Z \boldsymbol D_{\theta} \boldsymbol Z^{\mathrm{T}}.
+\end{equation*}
+
+The inherent randomness of the random effects makes it possible to formulate linear mixed models in two different forms, 
+in a marginal or in a conditional form. 
+The marginal formulation treats the random effects as an additional part of the already 
+random error term $ \boldsymbol \epsilon$. The conditional model on the other hand approaches 
+the random effects differently, by treating them as a part of the covariates. 
+This approach creates the following conditional response distribution
+
+\begin{equation*}
+    \label{conditionalModeldistribution}
+     \boldsymbol y |  \boldsymbol b \sim \mathcal{N} (  \boldsymbol {X}  \boldsymbol \beta +  \boldsymbol {Z} \boldsymbol b, \boldsymbol \Sigma).
+\end{equation*}

@@ -1,0 +1,27 @@
+
+\subsection{Asymptotically optimal weight choice}
+\label{chap:4.3.Asymptoticallyoptimalweightchoice}
+
+\cite{Zhang.2014} proposed an asymptotic optimal model averaging estimator, in the sense that the corresponding squared errors of the calculated model average estimators are asymptotically equal to those of the feasible best possible model average estimator.
+They use the squared loss of the model averaging estimator to derive a suitable criterion for weight determination. The loss-function takes on the following form
+\begin{equation*}
+\label{lossRisk}
+L( \boldsymbol w)= (\hat{ \boldsymbol y}(\boldsymbol w) - \boldsymbol \mu)^\prime(\hat{ \boldsymbol y}(\boldsymbol w) - \boldsymbol \mu)
+%L( \boldsymbol w)=\|\hat{ \boldsymbol y}( \boldsymbol w)- \boldsymbol \mu\|^{2} ,
+\end{equation*}
+where $\hat{ \boldsymbol y}(\boldsymbol w)$ represents the model average estimator and $\boldsymbol \mu$ the true but unknown mean. If $ \boldsymbol \epsilon \sim \mathcal{N}\left( 0, \sigma^{2}  \boldsymbol I_{n}\right)$, applying the theorem by \cite{stein1972bound} the expected loss is given by
+\label{angepassterisk}
+\begin{align*}
+   &E_{ \boldsymbol y| \boldsymbol b} \left( (\hat{ \boldsymbol y}(\boldsymbol w) - \boldsymbol \mu)^\prime(\hat{ \boldsymbol y}(\boldsymbol w) - \boldsymbol \mu) \right) = \\
+   &E_{ \boldsymbol y |  \boldsymbol b}\left(  ( { \boldsymbol y}- \hat{\boldsymbol \mu}(\boldsymbol w))^{\prime}( { \boldsymbol y}- \hat{\boldsymbol \mu}(\boldsymbol w))  +2 \sigma^{2}  \boldsymbol w^{\prime}  \boldsymbol \rho-n \sigma^{2}\right),
+\end{align*}
+where the $k \times 1$ elements of $\boldsymbol \rho$ are being defined as $\rho_{k} = \operatorname{tr}\left({\partial \hat{ \boldsymbol y}_{k}} / {\partial  \boldsymbol y^{\prime}}\right)$. Based on this form of the model averaging estimator, the weight finding criterion is defined as follows
+\begin{equation*}
+\label{gewichtskriterium}
+\hat{C}( \boldsymbol w)=  \left( { \boldsymbol y}- \hat{\boldsymbol \mu}(\boldsymbol w)\right)^{\prime} \left( { \boldsymbol y}- \hat{\boldsymbol \mu}(\boldsymbol w) \right) +2 \sigma^{2}  \boldsymbol w^{\prime}  \boldsymbol \rho,
+\end{equation*}
+% \hat{C}( \boldsymbol w)=\|\hat{ \boldsymbol y}( \boldsymbol w)- \boldsymbol \mu\|^{2}+2 \sigma^{2}  \boldsymbol w^{\prime}  \boldsymbol \rho
+thus, the optimal vector of weights $\hat{ \boldsymbol w}$ for the $\hat{ \boldsymbol y}(\hat{ \boldsymbol w})$ minimizes this criterion, so that $\hat{ \boldsymbol w}=\operatorname{argmin}_{ \boldsymbol w \in \mathcal{W}} \hat{C}( \boldsymbol w)$.
+The vector $ \boldsymbol \rho$ and therefore the derivatives influence the weight determination criterion $\hat{C}( \boldsymbol w)$ directly. 
+
+\cite{Greven.2010} show that the calculation of $\boldsymbol{\rho}$ can be done directly and, therefore, no further numerical procedures are necessary. This ,in turn, simplifies the minimization of the weight finding criterion \citep{Zhang.2014}.

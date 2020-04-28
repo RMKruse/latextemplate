@@ -1,0 +1,27 @@
+\subsection{Estimation of linear mixed models}
+\label{sec:2.1estimation}
+
+For a given variance parameters $ \boldsymbol \theta$, fixed as well as random effects can be estimated and predicted via  
+\begin{equation} 
+   \label{equ:2.2nonstacked}
+   \begin{aligned} 
+       \hat{ \boldsymbol \beta} &=\left( \boldsymbol X^{\prime}  \boldsymbol{V_{\theta}}^{-1}  \boldsymbol X\right)^{-1}  \boldsymbol X^{\prime}  \boldsymbol{V_{\theta}}^{-1}  \boldsymbol y \\ 
+       \hat{ \boldsymbol b} &= \boldsymbol D_{\boldsymbol \theta} \boldsymbol Z^{\prime}  \boldsymbol{V_{\theta}}^{-1}( \boldsymbol y- \boldsymbol X \hat{ \boldsymbol \beta}), 
+   \end{aligned}
+\end{equation}
+where the resulting estimator of the fixed effects $\hat{\boldsymbol \beta}$ is the best linear unbiased estimator and it is also the maximum-likelihood estimator of $\boldsymbol \beta$ and the predictor of the random effects $\hat{\boldsymbol b}$ is also the best linear unbiased predictor of $\boldsymbol{b}$ \citep{harville1976extension}. The corresponding profile log-likelihood for all underlying variance parameters $ \boldsymbol \theta$ is thus up to a constant equal to
+
+\begin{equation} 
+\label{ml}
+\ell_{P}(\boldsymbol \theta)=-\frac{1}{2}\left[\log |\boldsymbol{V_{\theta}}|+(\boldsymbol y-\boldsymbol X \hat{\boldsymbol \beta})^{\prime} \boldsymbol{V_{\theta}}^{-1}(\boldsymbol y-\boldsymbol X \hat{\boldsymbol \beta})\right].
+\end{equation}
+
+% However the ML-estimator introduces a bias with unknown covariance-variance matrices. 
+
+The complementary restricted log-likelihood for $\boldsymbol \theta$ takes the following form (up to an additive constant) of
+\begin{equation}
+\label{reml}
+   \ell_{R}( \boldsymbol \theta)=\ell_{P}(\boldsymbol \theta)-\frac{1}{2} \log \left| \boldsymbol X^{\prime}  \boldsymbol{V_{\theta}}^{-1}  \boldsymbol X\right|,
+\end{equation}
+
+maximizing this restricted log-likelihood results in the REML estimator for $ \boldsymbol \theta$, $\hat{ \boldsymbol \theta}_{REML}$ \citep{harville1976extension}. 
